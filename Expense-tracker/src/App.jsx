@@ -2,7 +2,7 @@ import React,{useState} from "react"
 import Header from './Header.jsx'
 import Balance from './Balance.jsx'
 import Transaction from './Transaction.jsx'
-import TransactionList from "./assets/TransactionList.jsx"
+import TransactionList from "./TransactionList.jsx"
 function App() {
   const[transactions,setTransactions]=useState([]);
 
