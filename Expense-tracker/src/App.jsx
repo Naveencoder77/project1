@@ -1,10 +1,18 @@
-import React,{useState} from "react"
+import React,{useState, useEffect} from "react"
 import Header from './Header.jsx'
 import Balance from './Balance.jsx'
 import Transaction from './Transaction.jsx'
 import TransactionList from "./TransactionList.jsx"
+import Chart from "./Chart.jsx"
 function App() {
-  const[transactions,setTransactions]=useState([]);
+  const[transactions,setTransactions]=useState(() => {
+    const saved = localStorage.getItem("transactions");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+    useEffect(() => {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [transactions]);
 
   const addTransaction=(transaction)=> {
     setTransactions([...transactions,transaction]);
@@ -21,13 +29,15 @@ function App() {
          
   const balance = income - expense ;       
   
+   
 
   return (
     <>
      <Header/>
      <Balance  balance={balance} income={income} expense={expense}/>
      <Transaction addTransaction={addTransaction}/>
-     <TransactionList transactions={transactions}/>
+     <TransactionList transactions={transactions}  setTransactions={setTransactions}/>
+     <Chart transactions={transactions}/>
     </>
   );
 }
