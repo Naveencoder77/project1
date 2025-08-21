@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "rec
 function Chart ({transactions}){
   const data = transactions.map((t, index) => ({
     name: t.category || `Item ${index + 1}`,
-    amount: t.amount, date:t.date,
+    amount: t.amount, date: t.date,isIssued: t.isIssued,
   }));
 
 const[searchCategory, setSearchCategory]=useState("");
@@ -24,6 +24,9 @@ const[month,setMonth]=useState("")
 return matchCategory && matchMonth;
 
   });
+  const datasonly = filteredData.filter(t => t.isIssued);
+
+
 
   return (
      <>
@@ -43,7 +46,7 @@ return matchCategory && matchMonth;
       <BarChart
         width={500}
         height={300}
-        data={filteredData}
+        data={datasonly}
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
